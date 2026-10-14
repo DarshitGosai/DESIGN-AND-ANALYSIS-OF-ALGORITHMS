@@ -1,6 +1,8 @@
 #include <iostream>
+#include <chrono>
+#include <iomanip>
 using namespace std;
-
+using namespace chrono;
 #define MAX 100
 
 /*
@@ -37,7 +39,6 @@ int binarySearch(int a[], int n, int key)
 
     return -1;
 }
-
 /*
     Linear Search
 
@@ -61,7 +62,6 @@ int linearSearch(int a[], int n, int key)
 
     return -1;
 }
-
 //main function
 int main()
 {
@@ -70,7 +70,7 @@ int main()
     cout << "Enter number of elements: ";
     cin >> n;
 
-    cout << "Enter elements:\n";
+    cout << "Enter elements:\n(sorted for usage of binary search)\n";
     for(i = 0; i < n; i++)
         cin >> a[i];
 
@@ -83,7 +83,7 @@ int main()
 
     cout << "\n\nEnter your choice: ";
     cin >> ch;
-
+    auto start = high_resolution_clock::now();
     switch(ch)
     {
         case 1:
@@ -98,11 +98,14 @@ int main()
             cout << "Invalid Choice";
             return 0;
     }
-
+    auto stop = high_resolution_clock::now();
+    double timeTaken = duration<double, micro>(stop - start).count();
     if(pos == -1)
-        cout << "\nElement Not Found.";
+        cout << "\nElement Not Found.\n";
     else
-        cout << "\nElement Found at Position " << pos + 1;
+        cout << "\nElement Found at Position " << pos + 1<<"\n";
 
+    cout << fixed << setprecision(6);
+    cout << "Time Taken: " << timeTaken << " microseconds\n";
     return 0;
 }
