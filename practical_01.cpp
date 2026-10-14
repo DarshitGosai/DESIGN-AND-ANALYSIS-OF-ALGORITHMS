@@ -1,12 +1,14 @@
 #include <iostream>
+#include <chrono>
+#include <iomanip>
 using namespace std;
-
+using namespace chrono;
 #define MAX 100
 
 void bubbleSort(int a[], int n)
 {
     int i, j, t;
-
+    bool swapped = false;
     for(i = 0; i < n - 1; i++)
     {
         for(j = 0; j < n - 1 - i; j++)
@@ -16,11 +18,14 @@ void bubbleSort(int a[], int n)
                 t = a[j];
                 a[j] = a[j + 1];
                 a[j + 1] = t;
+                swapped = true;
             }
         }
+         if(!swapped)
+            break;
     }
 }
-/*=========================================================
+/*
     Bubble Sort
     Time Complexity:
     Best Case    : O(n)
@@ -29,7 +34,7 @@ void bubbleSort(int a[], int n)
 
     Space Complexity:
     O(1)
-=========================================================*/
+*/
 
 void selectionSort(int a[], int n)
 {
@@ -50,7 +55,7 @@ void selectionSort(int a[], int n)
         a[min] = t;
     }
 }
-/*=========================================================
+/*
     Selection Sort
     Time Complexity:
     Best Case    : O(n^2)
@@ -59,7 +64,7 @@ void selectionSort(int a[], int n)
 
     Space Complexity:
     O(1)
-=========================================================*/
+*/
 
 void insertionSort(int a[], int n)
 {
@@ -79,7 +84,7 @@ void insertionSort(int a[], int n)
         a[j + 1] = key;
     }
 }
-/*=========================================================
+/*
     Insertion Sort
     Time Complexity:
     Best Case    : O(n)
@@ -88,7 +93,7 @@ void insertionSort(int a[], int n)
 
     Space Complexity:
     O(1)
-=========================================================*/
+*/
 
 void merge(int a[], int l, int m, int r)
 {
@@ -124,7 +129,7 @@ void mergeSort(int a[], int l, int r)
         merge(a, l, m, r);
     }
 }
-/*=========================================================
+/*
     Merge Sort
     Time Complexity:
     Best Case    : O(n log n)
@@ -133,7 +138,7 @@ void mergeSort(int a[], int l, int r)
 
     Space Complexity:
     O(n)
-=========================================================*/
+*/
 
 int partition(int a[], int low, int high)
 {
@@ -169,16 +174,16 @@ void quickSort(int a[], int low, int high)
         quickSort(a, p + 1, high);
     }
 }
+/*
+    Quick Sort
+    Time Complexity:
+    Best Case    : O(n log n)
+    Average Case : O(n log n)
+    Worst Case   : O(n^2)
 
-//    Quick Sort
-//  Time Complexity:
-//    Best Case    : O(n log n)
-//    Average Case : O(n log n)
-//    Worst Case   : O(n^2)
-
-//    Space Complexity:
-//    O(log n) (Recursion Stack)
-
+    Space Complexity:
+    O(log n) (Recursion Stack)
+*/
 
 //display function
 void printArray(int a[], int n)
@@ -191,17 +196,29 @@ void printArray(int a[], int n)
     cout << endl;
 }
 
-//main functions
+// Main function
 int main()
 {
-    int a[MAX], n, i, ch;
-
-    cout << "Enter number of elements: ";
+    int a[MAX], n, ch;
+    cout << "Enter number of elements (1-" << MAX << "): ";
     cin >> n;
 
+    if(cin.fail() || n < 1 || n > MAX)
+    {
+        cout << "Invalid number of elements.\n";
+        return 1;
+    }
+
     cout << "Enter elements:\n";
-    for(i = 0; i < n; i++)
+
+    for(int i = 0; i < n; i++)
         cin >> a[i];
+
+    if(cin.fail())
+    {
+        cout << "Invalid input.\n";
+        return 1;
+    }
 
     cout << "\nSorting Algorithms";
     cout << "\n1. Bubble Sort";
@@ -213,6 +230,13 @@ int main()
     cout << "\n\nEnter your choice: ";
     cin >> ch;
 
+    if(cin.fail() || ch < 1 || ch > 5)
+    {
+        cout << "Invalid choice.\n";
+        return 1;
+    }
+
+    auto start = high_resolution_clock::now();
     switch(ch)
     {
         case 1:
@@ -239,8 +263,11 @@ int main()
             cout << "Invalid Choice";
             return 0;
     }
+    auto stop = high_resolution_clock::now();
 
+    double timeTaken = duration<double, micro>(stop - start).count();
     printArray(a, n);
-
+    cout << fixed << setprecision(6);
+    cout << "Time Taken: " << timeTaken << " microseconds\n";
     return 0;
 }
