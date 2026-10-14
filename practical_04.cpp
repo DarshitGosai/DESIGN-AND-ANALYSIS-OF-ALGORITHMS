@@ -1,6 +1,8 @@
 #include <iostream>
+#include <chrono>
+#include <iomanip>
 using namespace std;
-
+using namespace chrono;
 /*
     Iterative Factorial
 
@@ -24,7 +26,6 @@ long long iterativeFactorial(int n)
 
     return fact;
 }
-
 /*
     Recursive Factorial
 
@@ -47,7 +48,7 @@ long long recursiveFactorial(int n)
     return n * recursiveFactorial(n - 1);
 }
 
-// main
+// Main Function
 int main()
 {
     int n, ch;
@@ -62,22 +63,25 @@ int main()
 
     cout << "\n\nEnter your choice: ";
     cin >> ch;
-
+    auto start = high_resolution_clock::now();
     switch(ch)
     {
         case 1:
             ans = iterativeFactorial(n);
-            cout << "\nFactorial = " << ans;
+            cout << "\nFactorial = " << ans<<"\n";
             break;
 
         case 2:
             ans = recursiveFactorial(n);
-            cout << "\nFactorial = " << ans;
+            cout << "\nFactorial = " << ans<<"\n";
             break;
 
         default:
             cout << "Invalid Choice";
     }
-
+    auto stop = high_resolution_clock::now();
+    double timeTaken = duration<double, micro>(stop - start).count();
+    cout << fixed << setprecision(6);
+    cout << "Time Taken: " << timeTaken << " microseconds\n";
     return 0;
 }
