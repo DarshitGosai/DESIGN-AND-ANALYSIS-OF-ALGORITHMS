@@ -199,7 +199,7 @@ void printArray(int a[], int n)
 // Main function
 int main()
 {
-    int a[MAX], n, ch;
+    int a[MAX], n;
     cout << "Enter number of elements (1-" << MAX << "): ";
     cin >> n;
 
@@ -210,64 +210,43 @@ int main()
     }
 
     cout << "Enter elements:\n";
-
+    
     for(int i = 0; i < n; i++)
         cin >> a[i];
-
-    if(cin.fail())
-    {
-        cout << "Invalid input.\n";
-        return 1;
-    }
-
-    cout << "\nSorting Algorithms";
-    cout << "\n1. Bubble Sort";
-    cout << "\n2. Selection Sort";
-    cout << "\n3. Insertion Sort";
-    cout << "\n4. Merge Sort";
-    cout << "\n5. Quick Sort";
-
-    cout << "\n\nEnter your choice: ";
-    cin >> ch;
-
-    if(cin.fail() || ch < 1 || ch > 5)
-    {
-        cout << "Invalid choice.\n";
-        return 1;
-    }
-
-    auto start = high_resolution_clock::now();
-    switch(ch)
-    {
-        case 1:
+    
+    auto Bstart = high_resolution_clock::now();
             bubbleSort(a, n);
-            break;
+    auto Bstop = high_resolution_clock::now();
 
-        case 2:
+    auto Sstart = high_resolution_clock::now();
             selectionSort(a, n);
-            break;
+    auto Sstop = high_resolution_clock::now();
 
-        case 3:
+    auto Istart = high_resolution_clock::now();
             insertionSort(a, n);
-            break;
+    auto Istop = high_resolution_clock::now();
 
-        case 4:
+    auto Mstart = high_resolution_clock::now();
             mergeSort(a, 0, n - 1);
-            break;
+    auto Mstop = high_resolution_clock::now();
 
-        case 5:
+    auto Qstart = high_resolution_clock::now();
             quickSort(a, 0, n - 1);
-            break;
+    auto Qstop = high_resolution_clock::now();
 
-        default:
-            cout << "Invalid Choice";
-            return 0;
-    }
-    auto stop = high_resolution_clock::now();
 
-    double timeTaken = duration<double, micro>(stop - start).count();
+    double BtimeTaken = duration<double, micro>(Bstop - Bstart).count();
+    double StimeTaken = duration<double, micro>(Sstop - Sstart).count();
+    double ItimeTaken = duration<double, micro>(Istop - Istart).count();
+    double MtimeTaken = duration<double, micro>(Mstop - Mstart).count();
+    double QtimeTaken = duration<double, micro>(Qstop - Qstart).count();
+
     printArray(a, n);
     cout << fixed << setprecision(6);
-    cout << "Time Taken: " << timeTaken << " microseconds\n";
+cout << "Time Taken By Bubble Sort:     " << BtimeTaken << " microseconds\n";
+cout << "Time Taken By Selection Sort:  " << StimeTaken << " microseconds\n";
+cout << "Time Taken By Insertion Sort:  " << ItimeTaken << " microseconds\n";
+cout << "Time Taken By Merge Sort:      " << MtimeTaken << " microseconds\n";
+cout << "Time Taken By Quick Sort:      " << QtimeTaken << " microseconds\n";
     return 0;
 }
