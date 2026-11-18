@@ -69,7 +69,7 @@ int main()
     double ItimeTaken = duration<double, micro>(Istop - Istart).count();
     double RtimeTaken = duration<double, micro>(Rstop - Rstart).count();
     cout << fixed << setprecision(6);
-    cout << "Time Taken: " << ItimeTaken << " microseconds\n";
-    cout << "Time Taken: " << RtimeTaken << " microseconds\n";
+    cout << "Time Taken By Iterative Method: " << ItimeTaken << " microseconds\n";
+    cout << "Time Taken By Recursive Method: " << RtimeTaken << " microseconds\n";
     return 0;
 }
