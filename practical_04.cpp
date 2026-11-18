@@ -52,36 +52,24 @@ long long recursiveFactorial(int n)
 int main()
 {
     int n, ch;
-    long long ans;
-
+    long long Ians;
+    long long Rans;
     cout << "Enter a number: ";
     cin >> n;
 
-    cout << "\nFactorial Methods";
-    cout << "\n1. Iterative Method";
-    cout << "\n2. Recursive Method";
+    auto Istart = high_resolution_clock::now();
+        Ians = iterativeFactorial(n);
+    auto Istop = high_resolution_clock::now();
 
-    cout << "\n\nEnter your choice: ";
-    cin >> ch;
-    auto start = high_resolution_clock::now();
-    switch(ch)
-    {
-        case 1:
-            ans = iterativeFactorial(n);
-            cout << "\nFactorial = " << ans<<"\n";
-            break;
-
-        case 2:
-            ans = recursiveFactorial(n);
-            cout << "\nFactorial = " << ans<<"\n";
-            break;
-
-        default:
-            cout << "Invalid Choice";
-    }
-    auto stop = high_resolution_clock::now();
-    double timeTaken = duration<double, micro>(stop - start).count();
+    auto Rstart = high_resolution_clock::now();
+        Rans = recursiveFactorial(n);
+    auto Rstop = high_resolution_clock::now();
+        cout << "\nFactorial = " << Ians<<"\n";
+    
+    double ItimeTaken = duration<double, micro>(Istop - Istart).count();
+    double RtimeTaken = duration<double, micro>(Rstop - Rstart).count();
     cout << fixed << setprecision(6);
-    cout << "Time Taken: " << timeTaken << " microseconds\n";
+    cout << "Time Taken: " << ItimeTaken << " microseconds\n";
+    cout << "Time Taken: " << RtimeTaken << " microseconds\n";
     return 0;
 }
