@@ -65,7 +65,7 @@ int linearSearch(int a[], int n, int key)
 //main function
 int main()
 {
-    int a[MAX], n, i, key, ch, pos;
+    int a[MAX], n, i, key, Lpos, Bpos;
 
     cout << "Enter number of elements: ";
     cin >> n;
@@ -77,35 +77,24 @@ int main()
     cout << "Enter element to search: ";
     cin >> key;
 
-    cout << "\nSearch Algorithms";
-    cout << "\n1. Linear Search";
-    cout << "\n2. Binary Search";
+    auto Lstart = high_resolution_clock::now();
+       Lpos = linearSearch(a, n, key);
+    auto Lstop = high_resolution_clock::now();
 
-    cout << "\n\nEnter your choice: ";
-    cin >> ch;
-    auto start = high_resolution_clock::now();
-    switch(ch)
-    {
-        case 1:
-            pos = linearSearch(a, n, key);
-            break;
-
-        case 2:
-            pos = binarySearch(a, n, key);
-            break;
-
-        default:
-            cout << "Invalid Choice";
-            return 0;
-    }
-    auto stop = high_resolution_clock::now();
-    double timeTaken = duration<double, micro>(stop - start).count();
-    if(pos == -1)
+    auto Bstart = high_resolution_clock::now();
+       Bpos = binarySearch(a, n, key);
+    auto Bstop = high_resolution_clock::now();
+    
+    double LtimeTaken = duration<double, micro>(Lstop - Lstart).count();
+    double BtimeTaken = duration<double, micro>(Bstop - Bstart).count();
+    
+    if(Lpos && Bpos == -1)
         cout << "\nElement Not Found.\n";
     else
-        cout << "\nElement Found at Position " << pos + 1<<"\n";
+        cout << "\nElement Found at Position " << Lpos + 1<<"\n";
 
     cout << fixed << setprecision(6);
-    cout << "Time Taken: " << timeTaken << " microseconds\n";
+    cout << "Time Taken By Linear Search: " << LtimeTaken << " microseconds\n";
+    cout << "Time Taken By Binary Search: " << BtimeTaken << " microseconds\n";
     return 0;
 }
